@@ -68,20 +68,15 @@ class MainActivity : AppCompatActivity() {
             rvTeams.layoutManager = LinearLayoutManager(this)
         }
 
-        val listTeamAdapter = ListTeamAdapter(list)
+        val listTeamAdapter = ListTeamAdapter(list) {
+            showSelectedTeam(it)
+        }
         rvTeams.adapter = listTeamAdapter
-
-        listTeamAdapter.setOnItemClickCallback(object: ListTeamAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: Team) {
-                showSelectedTeam(data)
-            }
-        })
     }
 
     private fun showSelectedTeam(team: Team) {
         val moveDetailIntent = Intent(this@MainActivity, DetailActivity::class.java)
         moveDetailIntent.putExtra(DetailActivity.EXTRA_TEAM, team)
         startActivity(moveDetailIntent)
-//        Toast.makeText(this, "Kamu memilih ${team.name}", Toast.LENGTH_SHORT).show()
     }
 }
